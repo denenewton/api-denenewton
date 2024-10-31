@@ -1,2 +1,2 @@
-# api-denenewton
- api of movies that you can use to practice fetching
+# API-dene newton
+ movies's API in GraphQL that you can use to practice fetching.
