@@ -31,13 +31,13 @@ export default async function Home() {
   if (loading) return "Loading....";
   return (
     <>
-      <div className="text-center">
+      <div className="text-center shadow-white">
         <h1 className="font-light text-slate-700 text-3xl py-5">Api Movies!</h1>
         <p className="font-extralight text-xs mt-[-12px]">
           <a href="http://localhost:3000/api/graphql">http://localhost:3000/api/graphql</a>
         </p>
       </div>
-      <ul className="w-full bg-slate-100">
+      <ul className="w-full bg-slate-200">
         {data.movies.map((el) => (
           <>
             <li key={el.id} className="w-full py-5">
