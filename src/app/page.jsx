@@ -1,34 +1,36 @@
 import client from "@/lib/client";
 import { gql } from "@apollo/client";
 
+const QUERY = gql`
+query {
+  movies {
+    id
+    title
+    vote_average
+    vote_count
+    poster_path
+    popularity
+    release_date
+    budget
+    backdrop_path
+    overview
+    homepage
+    production_companies {
+      name
+      origin_country
+    }
+    production_countries {
+      name
+    }
+  }
+}
+`;
+
 export default async function Home() {
-  const { data, loading, error } = await client.query({
-    query: gql`
-      query {
-        movies {
-          id
-          title
-          vote_average
-          vote_count
-          poster_path
-          popularity
-          release_date
-          budget
-          backdrop_path
-          overview
-          homepage
-          production_companies {
-            name
-            origin_country
-          }
-          production_countries {
-            name
-          }
-        }
-      }
-    `,
-  });
+  const { data, loading, error } = await client.query({ query: QUERY} );
+
   if (loading) return "Loading....";
+
   return (
     <>
       <div className="text-center shadow-white">
