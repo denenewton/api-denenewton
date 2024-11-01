@@ -27,6 +27,7 @@ const QUERY = gql`
 `;
 
 export default async function Home() {
+  const data = []
   //const { data, loading, error } = await client.query({ query: QUERY });
 
  // if (loading) return "Loading....";
@@ -42,7 +43,7 @@ export default async function Home() {
         </p>
       </div>
 
-      {data && (
+      {data.length > 0 && (
         <ul key={"4234jl4j2fslfjs"} className="w-full bg-slate-200">
           {data.movies.map((el) => (
             <li key={el.original_title} className="w-full py-5">
