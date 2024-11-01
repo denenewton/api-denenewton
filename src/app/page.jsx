@@ -1,50 +1,24 @@
-//import client from "@/lib/client";
-import { gql } from "@apollo/client";
+import client, { QUERY_MOVIES } from "@/lib/client";
 
-const QUERY = gql`
-  query {
-    movies {
-      id
-      title
-      vote_average
-      vote_count
-      poster_path
-      popularity
-      release_date
-      budget
-      backdrop_path
-      overview
-      homepage
-      production_companies {
-        name
-        origin_country
-      }
-      production_countries {
-        name
-      }
-    }
-  }
-`;
 
 export default async function Home() {
-  const data = []
-  //const { data, loading, error } = await client.query({ query: QUERY });
-
- // if (loading) return "Loading....";
+  const { data, loading, error } = await client.query({ query: QUERY_MOVIES });
+  
+  if (loading) return "Loading....";
 
   return (
-    <>
-      <div className="text-center shadow-white">
+    <div className="w-full h-screen grid grid-rows-[8rem 1fr] grid-cols-1">
+      <div className="w-full text-center bg-white z-0  shadow-md shadow-pink-500">
         <h1 className="font-light text-slate-700 text-3xl py-5">Api Movies!</h1>
-        <p className="font-extralight text-xs mt-[-12px]">
-          <a href="http://localhost:4000/api/graphql">
-            http://localhost:4000/api/graphql
+        <p className="font-extralight text-xs mt-[-14px] mb-1">
+          <a href="https://api-denenewton.vercel.app/api/graphql">
+           https://api-denenewton.vercel.app/api/graphql
           </a>
         </p>
       </div>
 
-      {data.length > 0 && (
-        <ul key={"4234jl4j2fslfjs"} className="w-full bg-slate-200">
+      {data && (
+        <ul className="w-full overflow-y-auto pt-3 bg-purple-50">
           {data.movies.map((el) => (
             <li key={el.original_title} className="w-full py-5">
               <div className="w-96 m-auto bg-white flex justify-between gap-x-5 rounded-md shadow-sm py-2 px-3 ">
@@ -82,6 +56,6 @@ export default async function Home() {
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 }
