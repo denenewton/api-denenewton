@@ -21,14 +21,13 @@ export default async function Home() {
         <ul className="w-full overflow-y-auto pt-3 bg-purple-50">
           {data.movies.map((el) => (
             <li key={el.original_title} className="w-full py-5">
-              <div className="w-96 m-auto bg-white flex justify-between gap-x-5 rounded-md shadow-sm py-2 px-3 ">
-                <div className="w-50 h-40  rounded-full">
-                  <img
-                    className="w-[100%] h-[100%] object-cover rounded-full"
+              <div className="max-w-[480px] m-auto bg-white flex justify-between gap-x-5 rounded-md shadow-sm py-3 pl-5 ">
+                <img
+                    className="w-44 h-44 object-cover shadow-sm rounded-full"
                     src={el.backdrop_path}
                     alt={el.title}
-                  />
-                </div>
+                />
+             
                 <div className="w-full flex flex-col justify-center text-gray-500 text-[13px]">
                   <a href={el.homepage}>
                     {" "}
