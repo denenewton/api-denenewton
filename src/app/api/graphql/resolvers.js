@@ -168,7 +168,7 @@ const resolvers = {
 
   Mutation: {
     saveMovies: async (_, { id }, { Movie }) => {
-      await getMovieMaped({ ...id }, Movie);
+      await getMovieMaped({ id: id }, Movie);
     },
   },
 
