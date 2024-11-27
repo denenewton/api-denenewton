@@ -168,7 +168,12 @@ const resolvers = {
 
   Mutation: {
     saveMovies: async (_, { id }, { Movie }) => {
-      await getMovieMaped({ id: id }, Movie);
+     try {
+       await getMovieMaped({ id: id }, Movie);
+      return "The movie was successfully saved "
+     } catch (error) {
+      return  "Sorry! the movie can't be saved"
+     }
     },
   },
 
