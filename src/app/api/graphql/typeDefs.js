@@ -167,6 +167,10 @@ const typeDefs = gql`
     getCast(id: Int!): SearchCastsPayload
     getPerson(id: Int!): PersonPayload
   }
+
+  type  Mutation {
+   saveMovies(id: Int!): String
+  }
   
 `;
 

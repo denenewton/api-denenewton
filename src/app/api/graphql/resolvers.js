@@ -1,7 +1,6 @@
 import { Axios, getPage, options, filtering } from "../../../utils";
 import { genres } from "../../../utils/genres.js";
 
-
 const resolvers = {
   MovieAndCast: {
     genres: async (_, __, ___) => {
@@ -79,30 +78,30 @@ const resolvers = {
       }
     },
     searchMovieFromData: async (
-        _,
-        { filter = { title: "", genre: "", year: "" }, page, perPage },
-        { Movie }
-      ) => {
-        const { title, genre, year } = filter;
-    
-        try {
-          const movies = await filtering(title, genre, year, Movie);
-          if (!movies) {
-            return {
-              __filename: "Error",
-              errors: "Sorry, we cannot find anything in our database.",
-            };
-          }
-          const infoPage = getPage(movies, page, perPage);
-    
-          return infoPage;
-        } catch (error) {
+      _,
+      { filter = { title: "", genre: "", year: "" }, page, perPage },
+      { Movie }
+    ) => {
+      const { title, genre, year } = filter;
+
+      try {
+        const movies = await filtering(title, genre, year, Movie);
+        if (!movies) {
           return {
             __filename: "Error",
-            errors: error.message,
+            errors: "Sorry, we cannot find anything in our database.",
           };
         }
-      },
+        const infoPage = getPage(movies, page, perPage);
+
+        return infoPage;
+      } catch (error) {
+        return {
+          __filename: "Error",
+          errors: error.message,
+        };
+      }
+    },
 
     searchMovieFromApi: async (_, { filter }, __) => {
       var _title = filter.title ? filter.title : "a";
@@ -167,6 +166,12 @@ const resolvers = {
     },
   },
 
+  Mutation: {
+    saveMovies: async (_, { id }, { Movie }) => {
+      await getMovieMaped({ ...id }, Movie);
+    },
+  },
+
   MoviePayload: {
     __resolveType: (obj) => {
       if (obj.errors) {
@@ -210,30 +215,32 @@ const resolvers = {
 
   SearchMovieFromDataPayload: {
     __resolveType: (obj) => {
-        if (obj.errors) {
-          return "Error";
-        }
-        if (obj.total_results || obj.page || obj.total_pages || obj.results || obj.next || obj.prev || obj.per_page) {
-          return "SearchMoviesFromData";
-        }
-        return null;
-      },
-  }
+      if (obj.errors) {
+        return "Error";
+      }
+      if (
+        obj.total_results ||
+        obj.page ||
+        obj.total_pages ||
+        obj.results ||
+        obj.next ||
+        obj.prev ||
+        obj.per_page
+      ) {
+        return "SearchMoviesFromData";
+      }
+      return null;
+    },
+  },
 };
 
-export default resolvers;
-
-
-
-
-
- // Mutation: {
-    // saveMovies: async (_, __, { movies, Movie }) => {
-    //   await movies.forEach(async (el) => {
-    //    await getMovieMaped(el, Movie);
-    //   });
-    // },
- // },
+//  Mutation: {
+//     saveMovies: async (_, __, { movies, Movie }) => {
+//       await movies.forEach(async (el) => {
+//        await getMovieMaped(el, Movie);
+//       });
+//     },
+//  },
 // movies: async (_, __, { movies }) => {
 //   let _mov = await movies.map(async (el) => {
 //     try {
@@ -251,3 +258,5 @@ export default resolvers;
 //   });
 //   return _mov;
 // },
+
+export default resolvers;
