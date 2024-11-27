@@ -1,4 +1,4 @@
-import { Axios, getPage, options, filtering } from "../../../utils";
+import { Axios, getPage, options, filtering , getMovieMaped} from "../../../utils";
 import { genres } from "../../../utils/genres.js";
 
 const resolvers = {
